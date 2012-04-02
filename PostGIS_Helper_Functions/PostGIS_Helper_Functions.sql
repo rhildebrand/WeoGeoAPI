@@ -17,20 +17,6 @@ $BODY$
 ALTER FUNCTION weogeo_buffer_returnfloat(double precision, double precision, double precision, double precision) OWNER TO postgres;
 
 
--- Function: weogeo_buffer(text)
-
--- DROP FUNCTION weogeo_buffer(text);
-
-CREATE OR REPLACE FUNCTION weogeo_buffer(instr text)
-  RETURNS text AS
-$BODY$
-    return instr*3
-$BODY$
-  LANGUAGE plpythonu VOLATILE
-  COST 100;
-ALTER FUNCTION weogeo_buffer(text) OWNER TO postgres;
-
-
 -- Function: weogeo_box2boundaries(integer, double precision, double precision, double precision, double precision)
 
 -- DROP FUNCTION weogeo_box2boundaries(integer, double precision, double precision, double precision, double precision);
