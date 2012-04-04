@@ -12,7 +12,7 @@ SCHEMA = {'geometry': 'Polygon', 'properties': {'name': 'str','token': 'str'}}
 def get_options():
     parser = OptionParser()
     parser.add_option("-l", "--library", dest="library", 
-                      help="Your library sumdomain (example.weogeo.com)")
+                      help="Your library subdomain (example.weogeo.com)")
     #parser.add_option("-k", "--key", dest="key", 
     #                  help="API Key for your library.")
     parser.add_option("-u", "--username", dest="username", 
