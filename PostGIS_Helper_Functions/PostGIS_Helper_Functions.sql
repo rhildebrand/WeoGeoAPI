@@ -116,7 +116,7 @@ BEGIN
 	||E'\n\nThumbnanil and Baseimage Values for WeoApp:\n'
 	||buf_bounds_sm;
         
-   RETURN csv_delim;
+   RETURN bounds_str;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
