@@ -43,6 +43,9 @@ except ImportError:
 
 #formats_object###################################################################################################################
 class formats( object ):
+    """
+    Use any of the following: JSON XML WEO KML PDF CSV
+    """
     JSON = 0
     XML  = 1
     WEO  = 2
@@ -130,6 +133,9 @@ class formats( object ):
 
 #HTTP_controller#################################################################################################################
 class httpController( object ):
+    """
+    Internal use only.  (Not required by users.)
+    """
     def getGTLD( self, string ):
         sepOne = string.find('.')
         if sepOne != -1:
