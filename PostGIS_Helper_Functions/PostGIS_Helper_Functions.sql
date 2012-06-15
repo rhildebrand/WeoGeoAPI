@@ -129,3 +129,21 @@ weogeo_box2boundaries(
 	double precision, 
 	double precision) 
 OWNER TO postgres;
+
+-- Function: get_from_list(integer, text)
+
+-- DROP FUNCTION get_from_list(integer, text);
+
+CREATE OR REPLACE FUNCTION get_from_list(indexin integer, instr text)
+  RETURNS double precision AS
+$BODY$
+    instr_split = instr[1:-1].split(",")
+    instr_float_list = [float(x) for x in instr_split]
+    return instr_float_list[indexin]
+$BODY$
+  LANGUAGE plpythonu VOLATILE
+  COST 100;
+ALTER FUNCTION get_from_list(integer, text) OWNER TO postgres;
+
+
+
