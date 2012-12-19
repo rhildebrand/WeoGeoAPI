@@ -1,3 +1,5 @@
+![WeoGeoLogo](http://www.weogeo.com/files/data/www/Logo.png)
+
 # WeoGeoAPI
 
 * Version 0.0.1
