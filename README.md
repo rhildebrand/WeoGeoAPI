@@ -1,10 +1,10 @@
-=============================
-WeoGeoAPI
-Version 0.0.1
-November 18, 2012
-Created by WeoGeo
-Original: http://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html
-License: MIT
+# WeoGeoAPI
+
+* Version 0.0.1
+* November 18, 2012
+* Created by WeoGeo
+* Original: [http://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html](http://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html)
+* License: MIT
 
 The Python WeoGeoAPI is a wrapper that allows users access to the functionality of the [WeoGeo API](http://www.weogeo.com/developer_doc/API.html) from within Python. The code is split into two Python files: the main file, WeoGeoAPI.py, and an optional support file, weoXML.py, which enables WeoGeoAPI.py to return weoXML objects if requested. Other than these two files, WeoGeoAPI.py uses only standard Python packages and is made available by importing into any Python project.
 
