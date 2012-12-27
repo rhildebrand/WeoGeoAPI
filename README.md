@@ -15,5 +15,5 @@ Making WeoGeoAPI.py, and optionally weoXML.py, accessible to a python project is
 User of the [Python Package Index](http://pypi.python.org/pypi) may simply type the following into their terminal windows:
 
 	pip install WeoGeoAPI
-
-Documentation is available on the [WeoGeo Support page](http://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html) and questions can be asked on the [WeoGeo Contact page](http://www.weogeo.com/contact.html).
+	
+Check out the [getting started](https://github.com/WeoGeo/WeoGeoAPI/tree/master/examples/getting_started) code samples to see how to find, get information, order and download data from WeoGeo.  Documentation is available on the [WeoGeo Support page](http://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html) and questions can be asked on the [WeoGeo Contact page](http://www.weogeo.com/contact.html).
