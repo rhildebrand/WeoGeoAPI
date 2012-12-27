@@ -23,13 +23,13 @@ if weos.connectToMarket() is True:
 
   print "\nFetching your dataset...\n"
 	
-	weoOutput = weos.getDataset('a32957481fde138c22c38a680f2ec65', 'JSON')
+  weoOutput = weos.getDataset('a32957481fde138c22c38a680f2ec65', 'JSON')
 	
-	print "Here is your dataset:\n"
+  print "Here is your dataset:\n"
   
-	# We pretty print the response
+  # We pretty print the response
   
-	print json.dumps(weoOutput, indent=4)
+  print json.dumps(weoOutput, indent=4)
  
 # If connection fails, then exit and tell the user.
  

@@ -31,13 +31,13 @@ if weos.connectToMarket() is True:
 
   print "\nSubmitting your job...\n"
 	
-	weoJob = weos.orderJobsInCart('', 'JSON')
+  weoJob = weos.orderJobsInCart('', 'JSON')
 	
-	print "Here is your order info:\n"
+  print "Here is your order info:\n"
   
-	# We pretty print the response
+  # We pretty print the response
   
-	print json.dumps(weoJob, indent=4)
+  print json.dumps(weoJob, indent=4)
  
 # If connection fails, then exit and tell the user.
  

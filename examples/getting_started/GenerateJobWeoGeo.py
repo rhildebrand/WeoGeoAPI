@@ -25,10 +25,7 @@ PASSWORD = getpass.getpass()
  
 weos = WeoGeoAPI.weoSession('http://market.weogeo.com', USERNAME, PASSWORD)
 
-	""" We need to create a JSON Job request.  More info can be found in our documentation: 
-	http://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html#job_methods  
-	In the returned JSON from the previous example, these options can be found in 
-	the "job_parameters". """
+""" We need to create a JSON Job request.  More info can be found in our documentation: http://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html#job_methods In the returned JSON from the previous example, these options can be found in the "job_parameters". """
 
 weoOrder = {
     # may be either true or false 
