@@ -228,19 +228,30 @@ class weoJob( object ):
         else:
             tContent = exDict
         request = '<job>'
-        request += '<dataset_token>%s</dataset_token>' % (tContent['job']['dataset_token'])
-        request += '<content_license_acceptance>%d</content_license_acceptance>' % (tContent['job']['content_license_acceptance'])
-        request += '<cart>%d</cart>' % (tContent['job']['cart'])
-        request += '<geometry>%s</geometry>' % (tContent['job']['geometry'])
-        request += '<note>%s</note>' % (tContent['job']['note'])
+        if tContent['job'].has_key('dataset_token') is True:
+            request += '<dataset_token>%s</dataset_token>' % (tContent['job']['dataset_token'])
+        if tContent['job'].has_key('content_license_acceptance') is True:
+            request += '<content_license_acceptance>%d</content_license_acceptance>' % (tContent['job']['content_license_acceptance'])
+        if tContent['job'].has_key('cart') is True:
+            request += '<cart>%d</cart>' % (tContent['job']['cart'])
+        if tContent['job'].has_key('geometry') is True:
+            request += '<geometry>%s</geometry>' % (tContent['job']['geometry'])
+        if tContent['job'].has_key('note') is True:
+            request += '<note>%s</note>' % (tContent['job']['note'])
 
         request += '<parameters>'
-        request += '<job_datum_projection>%s</job_datum_projection>' % (tContent['job']['parameters']['job_datum_projection'])
-        request += '<job_file_format>%s</job_file_format>' % (tContent['job']['parameters']['job_file_format'])
-        request += '<job_geocrop>%s</job_geocrop>' % (tContent['job']['parameters']['job_geocrop'])
-        request += '<job_spatial_resolution>%s</job_spatial_resolution>' % (tContent['job']['parameters']['job_spatial_resolution'])
-        request += '<library_to_library_host>%s</library_to_library_host>' % (tContent['job']['parameters']['library_to_library_host'])
-        request += '<job_layers>%s</job_layers>' % (';'.join(tContent['job']['layers']))
+        if tContent['job']['parameters'].has_key('job_datum_projection') is True:
+            request += '<job_datum_projection>%s</job_datum_projection>' % (tContent['job']['parameters']['job_datum_projection'])
+        if tContent['job']['parameters'].has_key('job_file_format') is True:
+            request += '<job_file_format>%s</job_file_format>' % (tContent['job']['parameters']['job_file_format'])
+        if tContent['job']['parameters'].has_key('job_geocrop') is True:
+            request += '<job_geocrop>%s</job_geocrop>' % (tContent['job']['parameters']['job_geocrop'])
+        if tContent['job']['parameters'].has_key('job_spatial_resolution') is True:
+            request += '<job_spatial_resolution>%s</job_spatial_resolution>' % (tContent['job']['parameters']['job_spatial_resolution'])
+        if tContent['job']['parameters'].has_key('library_to_library_host') is True:
+            request += '<library_to_library_host>%s</library_to_library_host>' % (tContent['job']['parameters']['library_to_library_host'])
+        if tContent['job']['parameters'].has_key('layers') is True:
+            request += '<job_layers>%s</job_layers>' % (';'.join(tContent['job']['layers']))
         request += '</parameters>'
 
         request += '</job>'
@@ -612,7 +623,7 @@ class weoSession( object ):
     def createJobRaw( self, content, rtype = formats.JSON ):
         if self.connected == False:
             raise Exception( 'Session error: session not connected. Call function "weoSession.connect()" before any API call.' )
-        if isinstance( content, job ) == True:
+        if isinstance( content, weoJob ) == True:
             rContent = content.getContent()
         elif isinstance( content, dict ) == True:
             rContent = content
@@ -625,7 +636,7 @@ class weoSession( object ):
         if rtype == 'json':
             request = json.dumps( rContent )
         else:
-            if isinstance( content, job ) == True:
+            if isinstance( content, weoJob ) == True:
                 request = content.toXML()
             else:
                 tJob = weoJob()
@@ -644,7 +655,7 @@ class weoSession( object ):
     def updateJobRaw( self, token, jobObject, rtype = formats.JSON ):
         if self.connected == False:
             raise Exception( 'Session error: session not connected. Call function "weoSession.connect()" before any API call.' )
-        if isinstance( jobObject, job ) == True:
+        if isinstance( jobObject, weoJob ) == True:
             content = jobObject.getContent()
         elif isinstance( jobObject, dict ) == True:
             content = content
@@ -656,7 +667,7 @@ class weoSession( object ):
         if rtype == 'json':
             request = json.dumps( content )
         else:
-            if isinstance( jobObject, job ) == True:
+            if isinstance( jobObject, weoJob ) == True:
                 request = jobObject.toXML()
             else:
                 tJob = weoJob()
@@ -706,7 +717,7 @@ class weoSession( object ):
     def getPriceRaw(self, request):
         if self.connected == False:
             raise Exception( 'Session error: session not connected. Call function "weoSession.connect()" before any API call.' )
-        if isinstance( request, job ) == True:
+        if isinstance( request, weoJob ) == True:
             request = request.getContent()
         path = 'jobs/price.json'
         code, output = self.httpC.Post( self.hostname, path, self.username, self.password, json.dumps(request) )
