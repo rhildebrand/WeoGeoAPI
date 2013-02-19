@@ -2,8 +2,8 @@
 
 # WeoGeoAPI
 
-* Version 1.0.0
-* February 1, 2013
+* Version 1.0.1
+* February 19, 2013
 * Created by WeoGeo
 * Original: [http://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html](http://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html)
 * License: MIT
