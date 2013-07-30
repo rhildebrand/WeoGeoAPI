@@ -493,6 +493,7 @@ class weoSession( object ):
 
     if _DEFINE_USING_WEOXML == True:
         def _parseOutput( self, rtype, output ):
+            rtype = formats(rtype)
             if len(output.strip()) == 0:
                 pOutput = output
             elif rtype == 'xml' or rtype == 'weo' or rtype == 'kml':
@@ -504,6 +505,7 @@ class weoSession( object ):
             return pOutput
     else:
         def _parseOutput( self, rtype, output ):
+            rtype = formats(rtype)
             if len(output.strip()) == 0:
                 pOutput = output
             elif rtype == 'xml' or rtype == 'weo' or rtype == 'kml':
@@ -686,7 +688,7 @@ class weoSession( object ):
         if self.connected == False:
             raise Exception( 'Session error: session not connected. Call function "weoSession.connect()" before any API call.' )
         rtype = formats( rtype )
-        path = 'jobs/' + token + '/process_job.' + str(rtype)
+        path = 'order/job/' + token + '/process.' + str(rtype)
         content = ''
         code, output = self.httpC.Put( self.hostname, path, self.username, self.password, content )
         return code, output
@@ -702,7 +704,7 @@ class weoSession( object ):
         if self.connected == False:
             raise Exception( 'Session error: session not connected. Call function "weoSession.connect()" before any API call.' )
         rtype = formats( rtype )
-        path = 'jobs/process_cart.' + str(rtype)
+        path = 'order/cart/process.' + str(rtype)
         content = ''
         code, output = self.httpC.Put( self.hostname, path, self.username, self.password, content )
         return code, output
