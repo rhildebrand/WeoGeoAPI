@@ -13,14 +13,14 @@ weos.connect()
 print weos
 
 # List of job tokens pulled from previous example
-jobtokens = ['69add159-01fa-4d84-8b83-f34692f582ec',
-             '4b278ed3-3674-425a-8106-eba5a2875de8',
-             '073dd749-2f04-41fa-911d-c90e8a3c098f']
+jobtokens = ['c6c89bce-c633-4fe3-814f-61265d3324a6',
+             '3ea0b1c7-0c09-44b5-a7fe-b183b4e8ab76',
+             '8d0a9080-3bcc-426a-b367-585ee8d01161']
 
 # Get download link for each job
 for token in jobtokens:
-    response, result = weos.getDownloadFile(token)
-    for item in result:
+    response = weos.getDownloadFile(token)
+    for item in response.content:
         print item['url']
 
 print "\nAll download links displayed."

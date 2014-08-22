@@ -19,6 +19,9 @@ class weoXML(object):
     def __str__(self):
         return self.root.toxml(encoding='UTF-8')
 
+    def toPrettyXML(self):
+        return self.root.toprettyxml(encoding='UTF-8')
+
     # clone the whole document
     def clone(self):
         tempObject = weoXML(str(self))

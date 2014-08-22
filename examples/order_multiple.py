@@ -21,43 +21,43 @@ jobs = []
 jobtokens = []
 
 # Create standard job object and append to jobs list
-standardJob = WeoGeoAPI.weoJob( datasetToken = '9dc42e34-cbd0-6952-ad6c-fb39eb23fd0a',
-                                acceptLicense = True)
+standardJob = WeoGeoAPI.weoJob(dataset_token = '5416193f-ba3d-f45e-bd9c-6dbf8193bfad',
+                               content_license_acceptance = True)
 jobs.append(standardJob)
 
 # Create vector job object and append to jobs list
-vectorJob = WeoGeoAPI.weoJob( datasetToken = 'bfc2b36e-3d0d-4a6d-935d-e9ab090aaa3c',
-                              layers = ['Area Hydrography', 'Linear Hydrography'],
-                              outputFormat = 'SHAPE',
+vectorJob = WeoGeoAPI.weoJob( dataset_token = 'af85e6ee-c2b8-e554-975f-dca938d40bc3',
+                              layers = ['Block', 'Census Tract'],
+                              job_file_format = 'SHAPE',
                               note = 'Extract of area around Portland, OR.',
-                              acceptLicense = True )
-vectorJob.setClipAreaCoordinateSystem( 'EPSG:4326' )                        
-vectorJob.addClipAreaPoints((-122.55,45.43), (-122.46,45.43), (-122.14,45.32), (-122.14,45.27), (-122.55,45.27))
+                              content_license_acceptance = True )
+vectorJob.setClipAreaCoordinateSystem('EPSG:4326')
+vectorJob.addClipAreaPoints(((-122.55,45.43), (-122.46,45.43), (-122.14,45.32), (-122.14,45.27), (-122.55,45.27)))
 jobs.append(vectorJob)
 
 # Create raster job object and append to jobs list
-rasterJob = WeoGeoAPI.weoJob( datasetToken = '5dbdb7db-1acf-4f19-b629-04b54f907552',
+rasterJob = WeoGeoAPI.weoJob( dataset_token = '5dbdb7db-1acf-4f19-b629-04b54f907552',
                               layers = ['10m High Res'],
-                              outputFormat = 'GeoTIFF',
-                              coordinateSystem = 'EPSG:4269',
-                              spatialResolution = '1',
+                              job_file_format = 'GeoTIFF',
+                              job_datum_projection = 'EPSG:4269',
+                              job_spatial_resolution = '1',
                               note = 'Extract of area around Oregon.',
-                              acceptLicense = True )
+                              content_license_acceptance = True )
 rasterJob.setBoxCropArea('EPSG:4326', 46.17, 42.13, -116.28, -124.33)
 jobs.append(rasterJob)
 
 # Create job objects and append the new job token to a list. Website response requires 201 to proceed.
 for job in jobs:
-    job_response, job_output = weos.createJob(job)
-    if job_response == 201:
-        jobtokens.append(job_output['parameters']['job_token'])
-        response, price = weos.getPrice(job)
+    response = weos.createJob(job)
+    if response.status == 201:
+        jobtokens.append(response.content['job']['parameters']['job_token'])
+        price = weos.getPrice(job)
     else:
-        print job_output
+        print job, response.content
     print "\n-Job Summary-"
-    print "Job Token: " + job_output['parameters']['job_token']
-    print "Price: " + price['price']
-    print "Size:  " + price['human_estimated_data_size']
+    print "Job Token: " + response.content['job']['parameters']['job_token']
+    print "Price: " + price.content['job_price']['price']
+    print "Size:  " + price.content['job_price']['human_estimated_data_size']
 
 # Move jobs to cart
 print "\n-Adding jobs to cart-"
@@ -66,10 +66,10 @@ for token in jobtokens:
     print token
 
 # Order jobs in cart
-order_response, order_results = weos.orderJobsInCart()
+response = weos.orderJobsInCart()
 
 # Log job tokens to text file
-for job in order_results['jobs']:
+for job in response.content['order']['jobs']:
     outfile.writelines(job['token'] + '\n')
 
 print "\n-Order completed: check e-mail for confirmation.-"

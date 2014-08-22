@@ -19,7 +19,7 @@ print weos
 outfile = open('tokenlist.csv', 'wb')
 writer = csv.writer(outfile)
 headers = ['token', 'name', 'max_price', 'data_type','data_files_size', 
-           'file_format', 'north', 'south', 'east', 'west','layers']
+           'file_format', 'north', 'south', 'east', 'west', 'layers']
 writer.writerow(headers)
 
 # List for datasets returned from parameters supplied
@@ -28,15 +28,15 @@ page = 1
 
 # Parse through page of results (15 per page) and log any free datasets.
 while True:
-    response, results = weos.getDatasets('JSON',
-                                         'page={}'.format(page),
-                                         'north=45.39', 'south=45.21', 'east=-122.27', 'west=-122.46')
-    if page > results['total_pages']:
+    response = weos.getDatasets('JSON', 'page={}'.format(page),
+                                'north=45.39', 'south=45.21', 'east=-122.27', 'west=-122.46')
+
+    if page > response.content['total_pages']:
         print '\n***Finished processing***'
         break
     else:
-        print 'Processing page {} of {}'.format(page, results['total_pages'])
-        for item in results['items']:
+        print 'Processing page {} of {}'.format(page, response.content['total_pages'])
+        for item in response.content['items']:
             if item['max_price'] == 0.0:
                 datasets.append([item['token'],
                                  item['name'],
@@ -44,11 +44,11 @@ while True:
                                  item['data_type'],
                                  item['data_files_size'],
                                  item['file_format'],
-                                 item['north'],
-                                 item['south'],
-                                 item['east'],
-                                 item['west'],
-                                 json.dumps(item['layers']).lstrip('[').rstrip(']')])
+                                 item['boundaries']['tiles']['north'],
+                                 item['boundaries']['tiles']['south'],
+                                 item['boundaries']['tiles']['east'],
+                                 item['boundaries']['tiles']['west'],
+                                 json.dumps(item['layers'])])
         page += 1
 
 for dataset in datasets:
