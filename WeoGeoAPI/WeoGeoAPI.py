@@ -160,6 +160,11 @@ class weoJob(object):
         self.content['job']['geometry'] = geometryString
         return 
 
+    def setGeometry(self, newGeometry):
+        self.geometryPoints[:] = []
+        self.content['job']['geometry'] = newGeometry
+        return
+
     def _addClipAreaPoint(self, x, y):
         x = float(x)
         y = float(y)
