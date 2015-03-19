@@ -5,11 +5,10 @@
 * Version 3.0.0
 * August 21, 2014
 * Created by WeoGeo
-* Original: [http://www.weogeo.comhttp://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html](http://www.weogeo.comhttp://www.weogeo.com/developer_doc/WeoGeo_API_Wrappers_Python.html)
 * License: MIT
 
 ## Introduction ##
-The Python WeoGeoAPI is a wrapper that allows users access to the functionality of the [WeoGeo API](http://www.weogeo.com/developer_doc/API.html) from within Python. The core API functionality is contained in the main source file, WeoGeoAPI.py. A secondary, and optional, support file called weoXML.py is also provided. Its purpose is to ease working with XML formatted content. Other than these two files, the Python API uses only standard Python packages and is made ready to use in any Python project by simply importing the main source file.
+The Python WeoGeoAPI is a wrapper that allows users access to the functionality of the [WeoGeo API](http://api.trimbledata.com) from within Python. The core API functionality is contained in the main source file, WeoGeoAPI.py. A secondary, and optional, support file called weoXML.py is also provided. Its purpose is to ease working with XML formatted content. Other than these two files, the Python API uses only standard Python packages and is made ready to use in any Python project by simply importing the main source file.
 
 Making WeoGeoAPI.py, and optionally weoXML.py, accessible to a Python project is as simple as making sure that the Python files are in the search path of the current Python project. This is most easily done by having them in the same directory as other Python source files used for the project. There is also the option adding any arbitrary location, where the WeoGeoAPI.py file presumably resides, to the Python search path by adding it to the ‘sys.path’ list from the standard Python module ‘sys’.
 
@@ -125,7 +124,7 @@ The following methods deal directly with setting up the weoSession object and es
 #### weoSession( host, username, password ) ####
 The only constructor for the weoSession class. This method is required to connect to the WeoGeo website.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/API.html#authentication)
+[REST API Equivalent](http://api.trimbledata.com/#authentication)
 
 ##### Inputs: #####
 + __host:__ URL of the WeoGeo target. If no protocol is included it defaults to HTTPS, if a protocol is included then that protocol is used, even if it results in error.
@@ -149,7 +148,7 @@ A new instance of a weoSession object.
 #### clear() ####
 Completely clears the weoSession object from any supplied credentials. After this method is called the weoSession object must be repopulated with a host, a username, and a password, and the connect method must be called.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/API.html#authentication)
+[REST API Equivalent](http://api.trimbledata.com/#authentication)
 
 ##### Inputs: #####
 None.
@@ -177,7 +176,7 @@ The instanced object itself.
 #### connect() ####
 Attempts to connect the WeoGeo website using the given username and password supplied from the weoSession object.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/API.html#authentication)
+[REST API Equivalent](http://api.trimbledata.com/#authentication)
 
 ##### Inputs: #####
 None.
@@ -201,7 +200,7 @@ The following methods deals with obtaining information about existing dataset li
 #### getDataset | getDatasetRaw( datasetToken, rtype = formats.JSON ) ####
 Retrieves listing information for a single data listing.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Datasets_API.html#get-dataset)
+[REST API Equivalent](http://api.trimbledata.com/#get-dataset)
 
 ##### Inputs: #####
 + __datasetToken:__ token which represents the dataset being requested.
@@ -227,7 +226,7 @@ Website response. The body of the request will contain the record of the dataset
 #### getDatasets | getDatasetsRaw( rtype = formats.JSON, \*filters ) ####
 Retrieves the records of multiple datasets from WeoGeo.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Datasets_API.html#list-datasets)
+[REST API Equivalent](http://api.trimbledata.com/#list-datasets)
 
 ##### Inputs: #####
 + __rtype:__ the format of the response by the website. Default is JSON. Only accepts formats.JSON or formats.XML.
@@ -264,7 +263,7 @@ These methods handle job creation and ordering. Before creating a job, job attri
 #### createJob | createJobRaw( newJob, rtype = formats.JSON ) ####
 Creates a new job record. Does not submit the order, just creates the job record.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#create-a-job)
+[REST API Equivalent](http://api.trimbledata.com/#create-a-job)
 
 ##### Inputs: #####
 + __newJob:__ a weoJob instance 
@@ -295,7 +294,7 @@ Website response. The body of the response will contain the record of the new jo
 #### getDownloadFile | getDownloadFileRaw( jobToken, rtype = formats.JSON ) ####
 Gets download information, including the download URL of a completed job.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#download-the-files-for-a-job)
+[REST API Equivalent](http://api.trimbledata.com/#download-job-files)
 
 ##### Inputs: #####
 + __jobToken:__ the token of the job record of interest.
@@ -321,7 +320,7 @@ Website response. The body of the response will contain the contents of the job.
 #### getJob | getJobRaw( jobToken, rtype = formats.JSON ) ####
 Retrieves the record of a created job.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#view-job-details)
+[REST API Equivalent](http://api.trimbledata.com/#view-job-details)
 
 ##### Inputs: #####
 + __jobToken:__ the token of the job being requested.
@@ -348,7 +347,7 @@ Website response. The body of the response will contain the record of the job re
 #### getJobsInCart | getJobsInCartRaw( rtype = formats.JSON ) ####
 Retrieves the records of all the jobs that are currently in the user's cart.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#list-jobs-in-the-users-shopping-cart)
+[REST API Equivalent](http://api.trimbledata.com/#list-jobs-in-cart)
 
 ##### Inputs: #####
 + __rtype:__ the format of the response by the website. Default is JSON. Only accepts formats.JSON or formats.XML.
@@ -379,7 +378,7 @@ Website response. The body of the response will contain all the jobs in the user
 #### getPrice | getPriceRaw( jobToken ) ####
 Retrieves the price, estimated size, and other attributes for a job. 
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#get-the-price-for-an-order)
+[REST API Equivalent](http://api.trimbledata.com/#get-job-price)
 
 ##### Inputs: #####
 + __jobToken:__ the job token
@@ -400,7 +399,7 @@ Website response. The body retrieves order information of the job.
 #### moveJobToCart( jobToken ) ####
 Moves a previously created job that is not in the shopping cart into the shopping cart. If the job is already in the cart then nothing happens.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#list-jobs-in-the-users-shopping-cart)
+[REST API Equivalent](http://api.trimbledata.com/#list-jobs-in-cart)
 
 ##### Inputs: #####
 + __jobToken:__ token that references the job to be moved into the cart.
@@ -420,7 +419,7 @@ Website response. The body of the response will be empty on success.
 #### removeJobFromCart( jobToken ) ####
 Removes a previously created job from the shopping cart. If the job is not in the cart then nothing happens.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#delete-a-job)
+[REST API Equivalent](http://api.trimbledata.com/#delete-a-job)
 
 ##### Inputs: #####
 + __jobToken:__ token that references the job to be removed from the cart.
@@ -440,7 +439,7 @@ Website response. The body of the response will be empty on success.
 #### orderJob | orderJobRaw( jobToken, rtype = formats.JSON ) ####
 Submits an order for a previously created job.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#order-a-job-not-in-a-cart)
+[REST API Equivalent](http://api.trimbledata.com/#order-a-job)
 
 ##### Inputs: #####
 + __jobToken:__ token of the job record being ordered for processing.
@@ -470,7 +469,7 @@ Website response. The body of the response will contain the details of the purch
 #### orderJobsInCart | orderJobsInCartRaw( rtype = formats.JSON ) ####
 Submits an order for all the jobs in the user's cart.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#order-the-users-shopping-cart)
+[REST API Equivalent](http://api.trimbledata.com/#order-jobs-in-cart)
 
 ##### Inputs: #####
 + __rtype:__ the format of the response by the website. Default is JSON. Only accepts formats.JSON or formats.XML.
@@ -498,7 +497,7 @@ These are the methods of the weoJob class. [Job instances](#job-basics) must be 
 #### setParameters( \*\*parameters ) ####
 Set parameters for job instance. Parameters that can be used are specific to the dataset. Not all parameters can be used on all datasets.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#create-a-job)
+[REST API Equivalent](http://api.trimbledata.com/#create-a-job)
 
 ##### Inputs: #####
 + __inCart__ = True/False                  
@@ -528,7 +527,7 @@ Nothing.
 #### setClipAreaCoordinates( newCYCS ) ####
 Set the coordinate system when using the [addClipAreaPoints](#addclipareapoints-listofpoints-) method. 
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#the-geometry-parameter)
+[REST API Equivalent](http://api.trimbledata.com/#job-geometry)
 
 ##### Inputs: #####
 + __newCYCS:__ the coordinate system of the polygon used to define the area of interest of the job. The only acceptable values are 'EPSG:4326', or WeoGeoAPI.weoJob.GEO, for the LatLong/WGS84 coordinate system; or 'EPSG:3857', or constant WeoGeoAPI.weoJob.SMERC, for the Spherical Mercator coordinate system.
@@ -549,7 +548,7 @@ Nothing.
 #### addClipAreaPoints( listOfPoints ) ####
 Add a list of X,Y points to create a custom polygon selection area. Requires at least 3 points. Points are used in sequence and line segments cannot intersect. Coordinate system of the points must be set by [setClipAreaCoordinates](#setclipareacoordinates-newcycs-).
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#the-geometry-parameter)
+[REST API Equivalent](http://api.trimbledata.com/#job-geometry)
 
 ##### Inputs: #####
 + __points:__ a list of X,Y tuples or lists where X and Y are coordinates
@@ -565,7 +564,7 @@ Nothing.
 #### setBoxCropArea( coordinateSystem, north, south, east, west ) ####
 Creates a bounding box using north, south, east, and west of the area desired for a job instance.
 
-[REST API Equivalent](http://www.weogeo.com/developer_doc/Jobs_API.html#the-geometry-parameter)
+[REST API Equivalent](http://api.trimbledata.com/#job-geometry)
 
 ##### Inputs: #####
 + __coordinateSystem:__ the coordinate system of the polygon used to define the area of interest of the job. The only acceptable values are 'EPSG:4326', or WeoGeoAPI.weoJob.GEO, for the LatLong/WGS84 coordinate system; or 'EPSG:3857', or constant WeoGeoAPI.weoJob.SMERC, for the Spherical Mercator coordinate system.
