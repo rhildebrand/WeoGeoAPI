@@ -20,10 +20,10 @@ To start using the WeoGeoAPI module, an instance of the weoSession class must be
 __Example:__
 
     >>> import WeoGeoAPI
-    >>> weos = WeoGeoAPI.weoSession( 'market.weogeo.com', 'username', 'password' )
-    >>> weos.connect()
-    >>> print weos
-    Host:      https://market.weogeo.com
+    >>> session = WeoGeoAPI.weoSession('market.trimbledata.com', 'username', 'password')
+    >>> session.connect()
+    >>> print session
+    Host:      https://market.trimbledata.com
     Username:  user@domain.com
     Password:  ************
     Status:    Good
@@ -34,19 +34,19 @@ Jobs are created and customized using methods from the weoSession and weoJob cla
 To set up a WeoGeo job, an instance of the weoJob class must be created with the desired parameters. The job instance encapsulates all of the attributes and spatial customizations of an order. Important attributes include: output format, output coordinate system, desired layers, etc. Attributes can be assigned with the constructor when the object is made, or after construction with the weoJob method, [setParameters](#setparameters-parameters-). Spatial customizations are set separately using [weoJob customization methods](#weojob-methods).
 
 ##### Example 1: Set parameters in the constructor #####
-    >>> newJob = WeoGeoAPI.weoJob( datasetToken = 'bfc2b36e-3d0d-4a6d-935d-e9ab090aaa3c',
-                                   layers = ['Area Hydrography', 'Linear Hydrography'],
-                                   outputFormat = 'SHAPE',
-                                   note = 'Extract of area around Portland, OR.',
-                                   acceptLicense = True )
+    >>> newJob = WeoGeoAPI.weoJob(datasetToken='bfc2b36e-3d0d-4a6d-935d-e9ab090aaa3c',
+                                  layers=['Area Hydrography', 'Linear Hydrography'],
+                                  outputFormat='SHAPE',
+                                  note='Extract of area around Portland, OR.',
+                                  acceptLicense=True)
 
 ##### Example 2: Create an empty instance, then use setParameters to set job parameters #####
     >>> newJob = WeoGeoAPI.weoJob()
-    >>> newJob.setParameters( datasetToken = 'bfc2b36e-3d0d-4a6d-935d-e9ab090aaa3c',
-                              layers = ['Area Hydrography', 'Linear Hydrography'],
-                              outputFormat = 'SHAPE', 
-                              note = 'Extract of area around Portland, OR.',
-                              acceptLicense = True )
+    >>> newJob.setParameters(datasetToken='bfc2b36e-3d0d-4a6d-935d-e9ab090aaa3c',
+                             layers=['Area Hydrography', 'Linear Hydrography'],
+                             outputFormat='SHAPE', 
+                             note='Extract of area around Portland, OR.',
+                             acceptLicense=True)
 
 Once the job instance and the parameters and customizations of the job have been set, the weoSession method, [createJob](#createjob--createjobraw-newjob-rtype--formatsjson-) must be called to create the job record. The job record will contain the job information, including the job token, which is used for ordering and retrieving information about the job.
 
@@ -60,7 +60,7 @@ It is typically easier to work with Python objects returned by the regular metho
 
 __Raw__ [orderJobsInCart](#orderjobsincart--orderjobsincartraw-rtype--formatsjson-) method: the variable 'results' will contain a Python string.
 
-    >>>response, results = weos.orderJobsInCartRaw('JSON')
+    >>>response, results = session.orderJobsInCartRaw('JSON')
     >>>print results
     {'status': 'Success', 'purchase_number': 'o1017848', 'jobs': [], 'job_transaction_id': None, 
     'purchaser': {'username': 'user@domain.com', 'rating': None, 'votes': 0, 'id': 3065}, 
@@ -69,7 +69,7 @@ __Raw__ [orderJobsInCart](#orderjobsincart--orderjobsincartraw-rtype--formatsjso
 
 __Regular__ [orderJobsInCart](#orderjobsincart--orderjobsincartraw-rtype--formatsjson-) method: the variable 'results' will contain a Python dict object.
 
-    >>>response, results = weos.orderJobsInCart('JSON')
+    >>>response, results = session.orderJobsInCart('JSON')
     >>>print results
     {u'status': u'Success', u'purchase_number': u'o1017848', u'jobs': [], u'job_transaction_id': None, 
     u'purchaser': {u'username': u'user@domain.com', u'rating': None, u'votes': 0, u'id': 3065}, 
@@ -83,7 +83,7 @@ The request type is set by using the special 'formats' class of the WeoGeoAPI mo
 
 The following example explicitly requests the response in JSON format.
 
-    >>> response, results = weos.getDataset( '3a3d32d5-b11a-4623-b42c-966b34c716ad', 'JSON' )
+    >>> response, results = session.getDataset('3a3d32d5-b11a-4623-b42c-966b34c716ad', 'JSON')
     >>> print results
     {u'hosted': True, u'layers': [u'RailroadLines', u'RailroadStations'], u'market': u'Complete', u'name': 
     u'CTARailroadNetwork-NorthAmerica', u'permalink': u'open-cta-railroad-network-north-america', u'status': 
@@ -91,7 +91,7 @@ The following example explicitly requests the response in JSON format.
     
 The same request, now requested in XML format.
 
-    >>> response, results = weos.getDataset( '3a3d32d5-b11a-4623-b42c-966b34c716ad', 'XML' )
+    >>> response, results = session.getDataset('3a3d32d5-b11a-4623-b42c-966b34c716ad', 'XML')
     >>> print results
     <?xml version="1.0" encoding="UTF-8"?>
     <dataset>
@@ -121,7 +121,7 @@ The following methods deal directly with setting up the weoSession object and es
 
 ---
 
-#### weoSession( host, username, password ) ####
+#### weoSession(host, username, password) ####
 The only constructor for the weoSession class. This method is required to connect to the WeoGeo website.
 
 [REST API Equivalent](http://api.trimbledata.com/#authentication)
@@ -136,9 +136,9 @@ A new instance of a weoSession object.
 
 ##### Example: #####
 
-    >>> weos = WeoGeoAPI.weoSession('market.weogeo.com', 'username', 'password')
-    >>> print weos
-    Host:      https://market.weogeo.com
+    >>> session = WeoGeoAPI.weoSession('market.trimbledata.com', 'username', 'password')
+    >>> print session
+    Host:      https://market.trimbledata.com
     Username:  user@domain.com
     Password:  **********
     Status:    Good
@@ -158,14 +158,14 @@ The instanced object itself.
 
 ##### Example: #####
 
-    >>> weos = WeoGeoAPI.weoSession( 'market.weogeo.com', 'username', 'password' )
-    >>> print weos
-    Host:      https://market.weogeo.com
+    >>> session = WeoGeoAPI.weoSession('market.trimbledata.com', 'username', 'password')
+    >>> print session
+    Host:      https://market.trimbledata.com
     Username:  user@domain.com
     Password:  **********
     Status:    Good
-    >>> weos.clear()
-    >>> print weos
+    >>> session.clear()
+    >>> print session
     Host:      None
     Username:  None
     Password:  None
@@ -186,8 +186,8 @@ None.
 
 ##### Example: #####
 
-    >>> weos = WeoGeoAPI.weoSession( 'market.weogeo.com', 'username', 'password' )
-    >>> weos.connect()
+    >>> session = WeoGeoAPI.weoSession('market.trimbledata.com', 'username', 'password')
+    >>> session.connect()
     True
 
 ----
@@ -197,7 +197,7 @@ The following methods deals with obtaining information about existing dataset li
 
 ---
 
-#### getDataset | getDatasetRaw( datasetToken, rtype = formats.JSON ) ####
+#### getDataset | getDatasetRaw(datasetToken, rtype=formats.JSON) ####
 Retrieves listing information for a single data listing.
 
 [REST API Equivalent](http://api.trimbledata.com/#get-dataset)
@@ -212,18 +212,18 @@ Website response. The body of the request will contain the record of the dataset
 
 ##### Example: #####
 
-    >>> response, record = weos.getDataset( '2323d6f5-12cf-4160-adb6-961da747e351', 'JSON' )
-    >>> print response    
+    >>> response, record = session.getDataset('2323d6f5-12cf-4160-adb6-961da747e351', 'JSON')
+    >>> print response
     200
     >>> print record
-    {u'preview_layer_api_url': u'https://market.weogeo.com/datasets/open-ports
+    {u'preview_layer_api_url': u'https://market.trimbledata.com/#/datasets/open-ports
     -and-ferries-of-the-united-states/preview_layers.json', u'rating': 0.0, u'suppor
     ted_customizations': {u'layer': True, u'file_format': True, u'projection_datum':
     True, u'geocrop': True, u'any': True, u'spatial_resolution': False}...
 
 ----
 
-#### getDatasets | getDatasetsRaw( rtype = formats.JSON, \*filters ) ####
+#### getDatasets | getDatasetsRaw(rtype=formats.JSON, \*filters) ####
 Retrieves the records of multiple datasets from WeoGeo.
 
 [REST API Equivalent](http://api.trimbledata.com/#list-datasets)
@@ -238,7 +238,7 @@ Website response. The body of the response will contain the records of all the d
 
 ##### Example: #####
 
-    >>> response, records = weos.getDatasets( 'JSON', 'data_type=vector', 'north=45.39', 'south=45.21', 'east=-122.27', 'west=-122.46' )
+    >>> response, records = session.getDatasets('JSON', 'data_type=vector', 'north=45.39', 'south=45.21', 'east=-122.27', 'west=-122.46')
     >>> print response
     200
     >>> print records
@@ -260,7 +260,7 @@ These methods handle job creation and ordering. Before creating a job, job attri
 
 ----
 
-#### createJob | createJobRaw( newJob, rtype = formats.JSON ) ####
+#### createJob | createJobRaw(newJob, rtype=formats.JSON) ####
 Creates a new job record. Does not submit the order, just creates the job record.
 
 [REST API Equivalent](http://api.trimbledata.com/#create-a-job)
@@ -275,12 +275,12 @@ Website response. The body of the response will contain the record of the new jo
 
 ##### Example: #####
 
-    >>> response, results = weos.createJob( newJob, 'JSON' )
+    >>> response, results = session.createJob(newJob, 'JSON')
     >>> print response
     200
     >>> print results
     {u'layers': [u'10m High Res'], u'status': u'Not Processed', u'api_url': 
-    u'https://market.weogeo.com/jobs/ab39f7cc-9826-4b9b-8c07-9b0f66680133.json', 
+    u'https://market.trimbledata.com/jobs/ab39f7cc-9826-4b9b-8c07-9b0f66680133.json', 
     u'parameters': {u'job_geocrop': u'Clip', u'job_file_format': u'Native', u'job_geometry':
     u'{"type":"Feature","crs":{"type":"name","properties":{"name":"EPSG:4326"}},"geometry":
     {"type":"Polygon","coordinates":[[[-124.33000000000,46.17000000000],[-116.28000000000,46.17000000000],
@@ -291,7 +291,7 @@ Website response. The body of the response will contain the record of the new jo
 
 ----
 
-#### getDownloadFile | getDownloadFileRaw( jobToken, rtype = formats.JSON ) ####
+#### getDownloadFile | getDownloadFileRaw(jobToken, rtype=formats.JSON) ####
 Gets download information, including the download URL of a completed job.
 
 [REST API Equivalent](http://api.trimbledata.com/#download-job-files)
@@ -304,7 +304,7 @@ Gets download information, including the download URL of a completed job.
 Website response. The body of the response will contain the contents of the job.
 
 ##### Example: #####
-    response, result = weos.getDownloadFile( '69add159-01fa-4d84-8b83-f34692f582ec', 'JSON' )
+    response, result = session.getDownloadFile('69add159-01fa-4d84-8b83-f34692f582ec', 'JSON')
     >>> print response
     200
     >>> print result
@@ -317,7 +317,7 @@ Website response. The body of the response will contain the contents of the job.
 
 ----
 
-#### getJob | getJobRaw( jobToken, rtype = formats.JSON ) ####
+#### getJob | getJobRaw(jobToken, rtype=formats.JSON) ####
 Retrieves the record of a created job.
 
 [REST API Equivalent](http://api.trimbledata.com/#view-job-details)
@@ -330,21 +330,21 @@ Retrieves the record of a created job.
 Website response. The body of the response will contain the record of the job requested.
 
 ##### Example: #####
-    response, result = weos.getJob( 'd1a03a07-c780-4682-9c49-1e33f9af6a8f', 'JSON')
+    response, result = session.getJob('d1a03a07-c780-4682-9c49-1e33f9af6a8f', 'JSON')
     >>> print response
     200
     >>> print result
-    {u'layers': None, u'status': u'In Cart', u'events_api_url': u'https://market.weogeo.com/jobs/d1a03a07-
-    c780-4682-9c49-1e33f9af6a8f/events.json', u'order_url': u'https://market.weogeo.com/jobs/order_cart?
-    id=d1a03a07-c780-4682-9c49-1e33f9af6a8f', u'job_edit_page_url': u'https://market.weogeo.com/datasets/
-    open_gns_world_waterbodies?job_id=d1a03a07-c780-4682-9c49-1e33f9af6a8f', u'api_url': u'https://
-    market.weogeo.com/jobs/d1a03a07-c780-4682-9c49-1e33f9af6a8f.json', u'parameters': {u'job_geometry': None, 
+    {u'layers': None, u'status': u'In Cart', u'events_api_url': u'https://market.trimbledata.com/jobs/d1a03a07-
+    c780-4682-9c49-1e33f9af6a8f/events.json', u'order_url': u'https://market.trimbledata.com/jobs/order_cart?
+    id=d1a03a07-c780-4682-9c49-1e33f9af6a8f', u'job_edit_page_url': u'https://market.trimbledata.com/#/datasets/
+    open_gns_world_waterbodies?jobToken=d1a03a07-c780-4682-9c49-1e33f9af6a8f', u'api_url': u'https://
+    market.trimbledata.com/jobs/d1a03a07-c780-4682-9c49-1e33f9af6a8f.json', u'parameters': {u'job_geometry': None, 
     u'job_token': u'd1a03a07-c780-4682-9c49-1e33f9af6a8f', u'dataset_token': u'9dc42e34-cbd0-6952-ad6c-
     fb39eb23fd0a', u'dataset_hostname': u'open.weogeo.com'}...
 
 ----
 
-#### getJobsInCart | getJobsInCartRaw( rtype = formats.JSON ) ####
+#### getJobsInCart | getJobsInCartRaw(rtype=formats.JSON) ####
 Retrieves the records of all the jobs that are currently in the user's cart.
 
 [REST API Equivalent](http://api.trimbledata.com/#list-jobs-in-cart)
@@ -356,26 +356,26 @@ Retrieves the records of all the jobs that are currently in the user's cart.
 Website response. The body of the response will contain all the jobs in the user's cart. 
 
 ##### Example: #####
-    >>> response, results = weos.getJobInCart( 'JSON' )
+    >>> response, results = session.getJobInCart('JSON')
     >>> print response
     200
     >>> print results
-    {u'display_total': u'$0.00', u'total': 0.0, u'jobs': [{u'api_url': u'https://market.weogeo.com/jobs/
+    {u'display_total': u'$0.00', u'total': 0.0, u'jobs': [{u'api_url': u'https://market.trimbledata.com/jobs/
     e733e78c-1c37-4f50-98f2-8ca8603e5d93.json', u'price': 0.0, u'dataset': {u'token': u'9dc42e34-cbd0-6952-ad6c-
-    fb39eb23fd0a', u'page_url': u'https://market.weogeo.com/datasets/open_gns_world_waterbodies', u'name': u'GNS 
-    World Waterbodies', u'api_url': u'https://market.weogeo.com/datasets/open_gns_world_waterbodies.json'}, 
+    fb39eb23fd0a', u'page_url': u'https://market.trimbledata.com/#/datasets/open_gns_world_waterbodies', u'name': u'GNS 
+    World Waterbodies', u'api_url': u'https://market.trimbledata.com/#/datasets/open_gns_world_waterbodies.json'}, 
     u'note': None, u'token': u'e733e78c-1c37-4f50-98f2-8ca8603e5d93', u'job_edit_url': u'https://
-    market.weogeo.com/datasets/open_gns_world_waterbodies?job_id=e733e78c-1c37-4f50-98f2-8ca8603e5d93'}, 
-    {u'api_url': u'https://market.weogeo.com/jobs/0df47a1d-60bc-4e54-8b51-c15000c29d99.json', u'price': 0.0, 
-    u'dataset': {u'token': u'5dbdb7db-1acf-4f19-b629-04b54f907552', u'page_url': u'https://market.weogeo.com/
+    market.trimbledata.com/datasets/open_gns_world_waterbodies?jobToken=e733e78c-1c37-4f50-98f2-8ca8603e5d93'}, 
+    {u'api_url': u'https://market.trimbledata.com/jobs/0df47a1d-60bc-4e54-8b51-c15000c29d99.json', u'price': 0.0, 
+    u'dataset': {u'token': u'5dbdb7db-1acf-4f19-b629-04b54f907552', u'page_url': u'https://market.trimbledata.com/
     datasets/open-natural-earth-shaded-relief', u'name': u'Natural Earth Shaded Relief', u'api_url': u'https://
-    market.weogeo.com/datasets/open-natural-earth-shaded-relief.json'}, u'note': u'Extract of area around 
-    Oregon.', u'token': u'0df47a1d-60bc-4e54-8b51-c15000c29d99', u'job_edit_url': u'https://market.weogeo.com/
-    datasets/open-natural-earth-shaded-relief?job_id=0df47a1d-60bc-4e54-8b51-c15000c29d99'}]}
+    market.trimbledata.com/datasets/open-natural-earth-shaded-relief.json'}, u'note': u'Extract of area around 
+    Oregon.', u'token': u'0df47a1d-60bc-4e54-8b51-c15000c29d99', u'job_edit_url': u'https://market.trimbledata.com/
+    datasets/open-natural-earth-shaded-relief?jobToken=0df47a1d-60bc-4e54-8b51-c15000c29d99'}]}
 
 ----
 
-#### getPrice | getPriceRaw( jobToken ) ####
+#### getPrice | getPriceRaw(jobToken) ####
 Retrieves the price, estimated size, and other attributes for a job. 
 
 [REST API Equivalent](http://api.trimbledata.com/#get-job-price)
@@ -387,7 +387,7 @@ Retrieves the price, estimated size, and other attributes for a job.
 Website response. The body retrieves order information of the job.
 
 ##### Example: #####
-    >>>response, results = weos.getPrice( 'e733e78c-1c37-4f50-98f2-8ca8603e5d93' )
+    >>>response, results = session.getPrice('e733e78c-1c37-4f50-98f2-8ca8603e5d93')
     >>>print response
     200
     >>>print results
@@ -396,7 +396,7 @@ Website response. The body retrieves order information of the job.
     
 ----
 
-#### moveJobToCart( jobToken ) ####
+#### moveJobToCart(jobToken) ####
 Moves a previously created job that is not in the shopping cart into the shopping cart. If the job is already in the cart then nothing happens.
 
 [REST API Equivalent](http://api.trimbledata.com/#list-jobs-in-cart)
@@ -408,7 +408,7 @@ Moves a previously created job that is not in the shopping cart into the shoppin
 Website response. The body of the response will be empty on success.
 
 ##### Example: #####
-    >>>response, results = weos.moveJobToCart( 'e733e78c-1c37-4f50-98f2-8ca8603e5d93' )
+    >>>response, results = session.moveJobToCart('e733e78c-1c37-4f50-98f2-8ca8603e5d93')
     >>>print response
     204
     >>>print results
@@ -416,7 +416,7 @@ Website response. The body of the response will be empty on success.
     
 ----
 
-#### removeJobFromCart( jobToken ) ####
+#### removeJobFromCart(jobToken) ####
 Removes a previously created job from the shopping cart. If the job is not in the cart then nothing happens.
 
 [REST API Equivalent](http://api.trimbledata.com/#delete-a-job)
@@ -428,7 +428,7 @@ Removes a previously created job from the shopping cart. If the job is not in th
 Website response. The body of the response will be empty on success.
 
 ##### Example: #####
-    >>>response, results = weos.removeJobFromCart( 'e733e78c-1c37-4f50-98f2-8ca8603e5d93' )
+    >>>response, results = session.removeJobFromCart('e733e78c-1c37-4f50-98f2-8ca8603e5d93')
     >>>print response
     204
     >>>print results
@@ -436,7 +436,7 @@ Website response. The body of the response will be empty on success.
     
 ----
 
-#### orderJob | orderJobRaw( jobToken, rtype = formats.JSON ) ####
+#### orderJob | orderJobRaw(jobToken, rtype=formats.JSON) ####
 Submits an order for a previously created job.
 
 [REST API Equivalent](http://api.trimbledata.com/#order-a-job)
@@ -449,24 +449,24 @@ Submits an order for a previously created job.
 Website response. The body of the response will contain the details of the purchase.
 
 ##### Example: #####
-    >>> response, results = weos.orderJob( 'e733e78c-1c37-4f50-98f2-8ca8603e5d93', 'JSON')
+    >>> response, results = session.orderJob('e733e78c-1c37-4f50-98f2-8ca8603e5d93', 'JSON')
     >>> print response
     200
     >>> print results
     {u'status': u'Success', u'purchase_number': u'o1017832', u'jobs': [{u'events_api_url': 
-    u'https://market.weogeo.com/jobs/27d7adec-5e95-45c3-9aca-1d41c724681d/events.json', u'api_url': u'https://
-    market.weogeo.com/jobs/27d7adec-5e95-45c3-9aca-1d41c724681d.json', u'token': 
-    u'27d7adec-5e95-45c3-9aca-1d41c724681d', u'events_api_url_template': u'https://market.weogeo.com/
+    u'https://market.trimbledata.com/jobs/27d7adec-5e95-45c3-9aca-1d41c724681d/events.json', u'api_url': u'https://
+    market.trimbledata.com/jobs/27d7adec-5e95-45c3-9aca-1d41c724681d.json', u'token': 
+    u'27d7adec-5e95-45c3-9aca-1d41c724681d', u'events_api_url_template': u'https://market.trimbledata.com/
     jobs/27d7adec-5e95-45c3-9aca-1d41c724681d/events/${id}.json', u'total': 0.0, u'job_edit_page_url': 
-    u'https://market.weogeo.com/datasets/open_gns_world_waterbodies?
-    job_id=27d7adec-5e95-45c3-9aca-1d41c724681d'}], u'job_transaction_id': None, u'purchaser': {u'username': 
+    u'https://market.trimbledata.com/#/datasets/open_gns_world_waterbodies?
+    jobToken=27d7adec-5e95-45c3-9aca-1d41c724681d'}], u'job_transaction_id': None, u'purchaser': {u'username': 
     u'user@domain.com', u'rating': None, u'votes': 0, u'id': 3065}, u'created_at': u'2013/02/05 18:16:31 +0000', 
     u'purchased_at': u'2013/02/05 18:16:31 +0000', u'updated_at': u'2013/02/05 18:16:31 +0000', u'token': 
     u'c7ed6cc3-4e32-4edd-b60a-58de1719797f'}
 
 ----
 
-#### orderJobsInCart | orderJobsInCartRaw( rtype = formats.JSON ) ####
+#### orderJobsInCart | orderJobsInCartRaw(rtype=formats.JSON) ####
 Submits an order for all the jobs in the user's cart.
 
 [REST API Equivalent](http://api.trimbledata.com/#order-jobs-in-cart)
@@ -478,7 +478,7 @@ Submits an order for all the jobs in the user's cart.
 Website response. The body of the response will contain the details of the purchase.
 
 ##### Example: #####
-    >>> response, results = weos.orderJobsInCart( 'JSON')
+    >>> response, results = session.orderJobsInCart('JSON')
     >>> print response
     200
     >>> print results
@@ -494,7 +494,7 @@ These are the methods of the weoJob class. [Job instances](#job-basics) must be 
 
 ----
 
-#### setParameters( \*\*parameters ) ####
+#### setParameters(\*\*parameters) ####
 Set parameters for job instance. Parameters that can be used are specific to the dataset. Not all parameters can be used on all datasets.
 
 [REST API Equivalent](http://api.trimbledata.com/#create-a-job)
@@ -514,17 +514,17 @@ Set parameters for job instance. Parameters that can be used are specific to the
 Nothing.
 
 ##### Example: #####
-    >>> newJob.setParameters( datasetToken = 'bfc2b36e-3d0d-4a6d-935d-e9ab090aaa3c',
-                              layers = ['Area Hydrography', 'Linear Hydrography'],
-                              outputFormat = 'SHAPE', 
-                              cropAction = 'Off',
-                              coordinateSystem = 'EPSG:4269',
-                              note = 'Oregon Hydrography data.',
-                              acceptLicense = True )
+    >>> newJob.setParameters(datasetToken='bfc2b36e-3d0d-4a6d-935d-e9ab090aaa3c',
+                             layers=['Area Hydrography', 'Linear Hydrography'],
+                             outputFormat='SHAPE', 
+                             cropAction='Off',
+                             coordinateSystem='EPSG:4269',
+                             note='Oregon Hydrography data.',
+                             acceptLicense=True)
                             
 ----
 
-#### setClipAreaCoordinates( newCYCS ) ####
+#### setClipAreaCoordinates(newCYCS) ####
 Set the coordinate system when using the [addClipAreaPoints](#addclipareapoints-listofpoints-) method. 
 
 [REST API Equivalent](http://api.trimbledata.com/#job-geometry)
@@ -536,16 +536,16 @@ Set the coordinate system when using the [addClipAreaPoints](#addclipareapoints-
 Nothing.
 
 ##### Example: #####
-    >>> newJob.setClipAreaCoordinateSystem( 'EPSG:3857' )
+    >>> newJob.setClipAreaCoordinateSystem('EPSG:3857')
     or
-    >>> newJob.setClipAreaCoordinateSystem( newJob.GEO )
+    >>> newJob.setClipAreaCoordinateSystem(newJob.GEO)
     or
-    >>> newJob.setClipAreaCoordinateSystem( WeoGEOAPI.weoJob.SMERC )
-    >>> newJob.addClipAreaPoints( [(-13953999.90, 6414019.90), (-12846538.81,6414019.90), (-13953999.90,2782346.66)] )
+    >>> newJob.setClipAreaCoordinateSystem(WeoGEOAPI.weoJob.SMERC)
+    >>> newJob.addClipAreaPoints([(-13953999.90, 6414019.90), (-12846538.81,6414019.90), (-13953999.90,2782346.66)])
    
 ----
 
-#### addClipAreaPoints( listOfPoints ) ####
+#### addClipAreaPoints(listOfPoints) ####
 Add a list of X,Y points to create a custom polygon selection area. Requires at least 3 points. Points are used in sequence and line segments cannot intersect. Coordinate system of the points must be set by [setClipAreaCoordinates](#setclipareacoordinates-newcycs-).
 
 [REST API Equivalent](http://api.trimbledata.com/#job-geometry)
@@ -557,11 +557,11 @@ Add a list of X,Y points to create a custom polygon selection area. Requires at 
 Nothing.
 
 ##### Example: #####
-    >>> newJob.addClipAreaPoints( [(-122.55,45.43), (-122.46,45.43), (-122.14,45.32), [-122.14,45.27], (-122.55,45.27)] )    
+    >>> newJob.addClipAreaPoints([(-122.55, 45.43), (-122.46, 45.43), (-122.14, 45.32), [-122.14, 45.27], (-122.55, 45.27)])
 
 ----
 
-#### setBoxCropArea( coordinateSystem, north, south, east, west ) ####
+#### setBoxCropArea(coordinateSystem, north, south, east, west) ####
 Creates a bounding box using north, south, east, and west of the area desired for a job instance.
 
 [REST API Equivalent](http://api.trimbledata.com/#job-geometry)
