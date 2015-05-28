@@ -5,13 +5,12 @@ raster and standard datasets found in previous examples. We will log the job tok
 in another example to download the jobs.
 """
 
-# Third Party Modules
 import WeoGeoAPI
 
-# Establish connection to WeoGeo Market
-weos = WeoGeoAPI.weoSession('market.weogeo.com', 'username', 'password')
-weos.connect()
-print weos
+# Establish connection to Trimble Data Marketplace
+session = WeoGeoAPI.weoSession('market.trimbledata.com', 'username', 'password')
+session.connect()
+print session
 
 # Create text file to log tokens
 outfile = open('job_tokens.txt', 'w')
@@ -21,37 +20,37 @@ jobs = []
 jobtokens = []
 
 # Create standard job object and append to jobs list
-standardJob = WeoGeoAPI.weoJob(dataset_token = '5416193f-ba3d-f45e-bd9c-6dbf8193bfad',
-                               content_license_acceptance = True)
+standardJob = WeoGeoAPI.weoJob(dataset_token='5416193f-ba3d-f45e-bd9c-6dbf8193bfad',
+                               content_license_acceptance=True)
 jobs.append(standardJob)
 
 # Create vector job object and append to jobs list
-vectorJob = WeoGeoAPI.weoJob( dataset_token = 'af85e6ee-c2b8-e554-975f-dca938d40bc3',
-                              layers = ['Block', 'Census Tract'],
-                              job_file_format = 'SHAPE',
-                              note = 'Extract of area around Portland, OR.',
-                              content_license_acceptance = True )
+vectorJob = WeoGeoAPI.weoJob(dataset_token='3d52ffef-50cf-41e5-aadf-a5ec3dc5fc11',
+                             layers=['All Roads', 'Census Tract'],
+                             job_file_format='SHAPE',
+                             note='Extract of area around Portland, OR.',
+                             content_license_acceptance=True)
 vectorJob.setClipAreaCoordinateSystem('EPSG:4326')
-vectorJob.addClipAreaPoints(((-122.55,45.43), (-122.46,45.43), (-122.14,45.32), (-122.14,45.27), (-122.55,45.27)))
+vectorJob.addClipAreaPoints(((-122.55, 45.43), (-122.46, 45.43), (-122.14, 45.32), (-122.14, 45.27), (-122.55, 45.27)))
 jobs.append(vectorJob)
 
 # Create raster job object and append to jobs list
-rasterJob = WeoGeoAPI.weoJob( dataset_token = '5dbdb7db-1acf-4f19-b629-04b54f907552',
-                              layers = ['10m High Res'],
-                              job_file_format = 'GeoTIFF',
-                              job_datum_projection = 'EPSG:4269',
-                              job_spatial_resolution = '1',
-                              note = 'Extract of area around Oregon.',
-                              content_license_acceptance = True )
+rasterJob = WeoGeoAPI.weoJob(dataset_token='5dbdb7db-1acf-4f19-b629-04b54f907552',
+                             layers=['10m High Res'],
+                             job_file_format='GeoTIFF',
+                             job_datum_projection='EPSG:4269',
+                             job_spatial_resolution='1',
+                             note='Extract of area around Oregon.',
+                             content_license_acceptance=True)
 rasterJob.setBoxCropArea('EPSG:4326', 46.17, 42.13, -116.28, -124.33)
 jobs.append(rasterJob)
 
 # Create job objects and append the new job token to a list. Website response requires 201 to proceed.
 for job in jobs:
-    response = weos.createJob(job)
+    response = session.createJob(job)
     if response.status == 201:
         jobtokens.append(response.content['job']['parameters']['job_token'])
-        price = weos.getPrice(job)
+        price = session.getPrice(job)
     else:
         print job, response.content
     print "\n-Job Summary-"
@@ -62,11 +61,11 @@ for job in jobs:
 # Move jobs to cart
 print "\n-Adding jobs to cart-"
 for token in jobtokens:
-    weos.moveJobToCart(token)
+    session.moveJobToCart(token)
     print token
 
 # Order jobs in cart
-response = weos.orderJobsInCart()
+response = session.orderJobsInCart()
 
 # Log job tokens to text file
 for job in response.content['order']['jobs']:

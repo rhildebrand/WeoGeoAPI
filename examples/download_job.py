@@ -4,13 +4,12 @@ information that was logged from the order_multiple.py example. Important note: 
 links are only valid for 7 days after the job has been ordered.
 """
 
-# Third Party Modules
 import WeoGeoAPI
 
-# Establish connection to WeoGeo Market
-weos = WeoGeoAPI.weoSession('market.weogeo.com', 'username', 'password')
-weos.connect()
-print weos
+# Establish connection to Trimble Data Marketplace
+session = WeoGeoAPI.weoSession('market.trimbledata.com', 'username', 'password')
+session.connect()
+print session
 
 # List of job tokens pulled from previous example
 jobtokens = ['c6c89bce-c633-4fe3-814f-61265d3324a6',
@@ -19,7 +18,7 @@ jobtokens = ['c6c89bce-c633-4fe3-814f-61265d3324a6',
 
 # Get download link for each job
 for token in jobtokens:
-    response = weos.getDownloadFile(token)
+    response = session.getDownloadFile(token)
     for item in response.content:
         print item['url']
 
